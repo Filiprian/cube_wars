@@ -1,10 +1,10 @@
 import pygame
 import math
-from cubewars.code import buttons
+from cube_wars.code import buttons
 from player_class import player_movement
 from ui.ui_text import rift_text, game_over_text, paused_text, main_menu_text, game_text
 from ui.arrows import Arrows
-from cubewars.code.power_ups_class import Power_ups
+from cube_wars.code.power_ups_class import Power_ups
 # Enemies
 from enemy_class import Enemy
 from g_enemy_class import G_enemy
@@ -12,8 +12,8 @@ from turret_class import Turret
 from boss_class import Boss
 # Obsticles
 from asteroid_class import Asteroid
-from cubewars.code.meteorite_class import Meteorite
-from cubewars.code.rock_class import Space_rock
+from cube_wars.code.meteorite_class import Meteorite
+from cube_wars.code.rock_class import Space_rock
 from walls_class import Walls
 
 pygame.init()
@@ -422,6 +422,7 @@ while run:
                 # Shots collisions
                 if shot.right > WIDTH:
                     shots.remove(shot)
+                    continue
                 elif enemy.alive and shot.colliderect(enemy.enemy) and not (turret.active or g_enemy.alive):
                     enemy.alive = False
                     explosion_sfx.play()
@@ -436,10 +437,12 @@ while run:
                     score += 5
                     shots.remove(shot)
                     asteroid.asteroid_death()
+                    continue
                 elif rock.active and rock.rock.colliderect(shot):
                     rock_shot += 1
                     shots.remove(shot)
                     rock.channel.play(rock.collision_sfx)
+                    continue
                 elif g_enemy.alive and g_enemy.g_enemy.colliderect(shot):
                     g_enemy.alive = False
                     g_enemy.move_value = 0
@@ -450,6 +453,14 @@ while run:
                     score += 25
                     if enemy_killcount < 17:
                         enemy.new_enemy()
+                elif walls.wall_active and walls.wall.colliderect(shot):
+                    shots.remove(shot)
+                    shot_collision.play(shot_collision_sfx)
+                    continue
+                elif walls.walls_active and (walls.wall1.colliderect(shot) or walls.wall2.colliderect(shot)):
+                    shots.remove(shot)
+                    shot_collision.play(shot_collision_sfx)
+                    continue
                 elif turret.active:
                     if shot.colliderect(turret.switch):
                         turret.active = False
@@ -470,21 +481,18 @@ while run:
                         turret.turret_enemy += 1
                         if turret.turret_enemy < 2:
                             enemy.new_enemy()
+                    continue
                 elif boss.alive and boss.boss.colliderect(shot):
                     boss.life += 1
                     shots.remove(shot)
                     shot_collision.play(shot_collision_sfx)
                     boss.shield_active = True
+                    continue
                 elif boss.shield_active:
                     if boss.shield.colliderect(shot):
                         shots.remove(shot)
                         shot_collision.play(shot_collision_sfx)
-                elif walls.wall_active and walls.wall.colliderect(shot):
-                    shots.remove(shot)
-                    shot_collision.play(shot_collision_sfx)
-                elif walls.walls_active and (walls.wall1.colliderect(shot) or walls.wall2.colliderect(shot)):
-                    shots.remove(shot)
-                    shot_collision.play(shot_collision_sfx)
+                    continue
 
             # Power-ups -----
             power_ups.update(rift_active, screen, player, shots, x, y, power_up_len, asteroid.asteroid, asteroid.active,
