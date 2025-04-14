@@ -21,12 +21,12 @@ class Arrows:
             click_sfx.play()
 
         if self.game_over_arrow == 100:
-            if key[pygame.K_SPACE] or key[pygame.K_RETURN]:
+            if key[pygame.K_RETURN]:
                 reset_game()
                 alive = True
                 score = 0
         elif self.game_over_arrow == 100:
-            if key[pygame.K_SPACE] or key[pygame.K_RETURN]:
+            if key[pygame.K_RETURN]:
                 run = False
 
         return alive, run, score
