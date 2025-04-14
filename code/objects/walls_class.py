@@ -30,14 +30,14 @@ class Walls():
             walls = random.choice(["upper wall", "downwards wall", "others"])
             self.cooldown = 0
             if walls == "upper wall":
-                self.wall = pygame.Rect(1220, 0, 8, upwall_size)
+                self.wall = pygame.Rect(1220, 0, 12, upwall_size)
                 self.wall_active = True
             elif walls == "downwards wall":
-                self.wall = pygame.Rect(1220, downwall_size, 8, 590)
+                self.wall = pygame.Rect(1220, downwall_size, 12, 590)
                 self.wall_active = True
             else:
-                self.wall1 = pygame.Rect(1220, 0, 8, wall1_size)
-                self.wall2 = pygame.Rect(1220, wall2_size, 8, 400)
+                self.wall1 = pygame.Rect(1220, 0, 12, wall1_size)
+                self.wall2 = pygame.Rect(1220, wall2_size, 12, 400)
                 self.walls_active = True
 
         # Up wall ---
@@ -72,7 +72,7 @@ class Walls():
             # Enemy collision
             if enemy.colliderect(self.wall) and enemy.right <= self.wall.right:
                 self.e_wall_collision = True
-                enemy.move_ip(-4, 0)
+                enemy.move_ip(-6, 0)
             elif enemy.colliderect(self.wall) and enemy.left >= self.wall.left:
                 self.e_wall_collision = True
                 enemy.move_ip(1, 0)
@@ -82,7 +82,7 @@ class Walls():
             # G-enemy collision
             if g_enemy.colliderect(self.wall) and g_enemy.right <= self.wall.right:
                 self.g_wall_collision = True
-                g_enemy.move_ip(-4, 0)
+                g_enemy.move_ip(-10, 0)
             elif g_enemy.colliderect(self.wall) and g_enemy.left >= self.wall.left:
                 self.g_wall_collision = True
                 enemy.move_ip(1, 0)
