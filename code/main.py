@@ -1,20 +1,20 @@
 import pygame
 import math
-from cube_wars.code import buttons
+from cube_wars.code.ui import buttons
 from player_class import player_movement
 from ui.ui_text import rift_text, game_over_text, paused_text, main_menu_text, game_text
 from ui.arrows import Arrows
 from cube_wars.code.power_ups_class import Power_ups
 # Enemies
-from enemy_class import Enemy
-from g_enemy_class import G_enemy
-from turret_class import Turret
-from boss_class import Boss
+from cube_wars.code.enemies.enemy_class import Enemy
+from cube_wars.code.enemies.g_enemy_class import G_enemy
+from cube_wars.code.enemies.turret_class import Turret
+from cube_wars.code.enemies.boss_class import Boss
 # Obsticles
-from asteroid_class import Asteroid
-from cube_wars.code.meteorite_class import Meteorite
-from cube_wars.code.rock_class import Space_rock
-from walls_class import Walls
+from cube_wars.code.objects.asteroid_class import Asteroid
+from cube_wars.code.objects.meteorite_class import Meteorite
+from cube_wars.code.objects.rock_class import Space_rock
+from cube_wars.code.objects.walls_class import Walls
 
 pygame.init()
 pygame.mixer.init()
